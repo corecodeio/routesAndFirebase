@@ -1,0 +1,37 @@
+import { Navbar, Container, Nav, NavDropdown, Alert } from 'react-bootstrap'
+import { Link } from 'react-router-dom'; 
+import { useState } from 'react';
+
+const NavBar = () => {
+  const [error, setError] = useState('');
+
+  const HandlerLogout = () => {
+    console.log('log out');
+  }
+
+  return (
+    <header>
+      <Navbar bg="dark" variant="dark" expand="lg">
+        <Container>
+          <Navbar.Brand as={Link} to="/">Example App</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={Link} exact to="/">Dashboard</Nav.Link>
+              <Nav.Link as={Link} to="/about">About</Nav.Link>
+              <Nav.Link as={Link} to="/help">Help</Nav.Link>
+            </Nav>
+            <Nav>
+              <NavDropdown title="User">
+                <NavDropdown.Item onClick={HandlerLogout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {error && <Alert variant="danger">{error}</Alert>}
+    </header>
+  );
+}
+
+export default NavBar;
