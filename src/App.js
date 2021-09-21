@@ -5,16 +5,19 @@ import Layout from './components/Layout/Layout';
 import Dashboard from './components/Dashboard/Dashboard';
 import About from './components/About/About';
 import Help from './components/Help/Help';
+import AuthProvider from './context/AuthProvider';
 
 const App = () => {
   return (
-    <Switch>
-      <Layout exact path="/" component={Dashboard}/>
-      <Layout path="/about" component={About}/>
-      <Layout path="/help" component={Help}/>
-      <Route path="/register" component={Register}/>
-      <Route path="/login" component={Login}/>
-    </Switch>
+    <AuthProvider>
+      <Switch>
+        <Layout exact path="/" component={Dashboard}/>
+        <Layout path="/about" component={About}/>
+        <Layout path="/help" component={Help}/>
+        <Route path="/register" component={Register}/>
+        <Route path="/login" component={Login}/>
+      </Switch>
+    </AuthProvider>
   );
 }
 

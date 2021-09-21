@@ -1,12 +1,21 @@
 import { Navbar, Container, Nav, NavDropdown, Alert } from 'react-bootstrap'
-import { Link } from 'react-router-dom'; 
-import { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom'; 
+import { useState, useContext } from 'react';
+import AuthContext from '../../context/auth-context';
 
 const NavBar = () => {
+  const authCtx = useContext(AuthContext);
   const [error, setError] = useState('');
+  const history = useHistory();
 
-  const HandlerLogout = () => {
-    console.log('log out');
+  const HandlerLogout = async () => {
+    try {
+      setError('');
+      await authCtx.logout();
+      history.push('/register');
+    } catch {
+      setError('Impossible to scape');
+    }
   }
 
   return (
@@ -22,7 +31,7 @@ const NavBar = () => {
               <Nav.Link as={Link} to="/help">Help</Nav.Link>
             </Nav>
             <Nav>
-              <NavDropdown title="User">
+              <NavDropdown title={authCtx.currentUser.email}>
                 <NavDropdown.Item onClick={HandlerLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
